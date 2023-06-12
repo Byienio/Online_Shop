@@ -1,6 +1,11 @@
 #include <iostream>
+#include "shop.h"
+#include <string>
+#include "shop.h"
+using namespace std;
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    shop shop1;
+    shop1.menu();
     return 0;
 }
