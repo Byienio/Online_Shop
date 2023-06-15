@@ -8,11 +8,16 @@
 #include <iostream>
 #include <string>
 #include "client.h"
+#include <fstream>
+#include <sstream>
+#include <ostream>
 using namespace std;
 class shop {
 public:
     void addUser(string firstName, string lastName, string address, string gender);
     void modifyUser(int index,string firstName, string lastName, string address, string gender);
+    void saveToText(vector<client> user);
+    void saveToBinText(vector<client>user);
     void menu();
 
 private:

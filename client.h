@@ -18,6 +18,12 @@ private:
 public:
     client(string firstName, string lastName, string address, string gender);
     void showusers();
+    string getFirstName();
+    string getLastName();
+    string getAddress();
+    string getGender();
+
+
 };
 
 

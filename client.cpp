@@ -17,3 +17,19 @@ void client::showusers() {
     cout << "Delivery Address: " << address << endl;
     cout << "Gender: " << gender << endl;
 }
+
+string client::getFirstName() {
+    return firstName;
+}
+
+string client::getLastName() {
+    return lastName;
+}
+
+string client::getGender() {
+    return gender;
+}
+
+string client::getAddress() {
+    return address;
+}
