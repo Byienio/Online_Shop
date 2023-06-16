@@ -10,14 +10,6 @@ this->lastName=lastName;
 this->address=address;
 this->gender=gender;
 }
-
-void client::showusers() {
-    cout << "First Name: " << firstName << endl;
-    cout << "Last Name: " << lastName << endl;
-    cout << "Delivery Address: " << address << endl;
-    cout << "Gender: " << gender << endl;
-}
-
 string client::getFirstName() {
     return firstName;
 }
