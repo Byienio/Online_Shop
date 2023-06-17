@@ -81,6 +81,13 @@ void shop::menu() {
                 if (price == 0) cout << "zla nazwa produktu" << endl;\
                 break;
             }
+            case(5):{
+                for (auto product: products) {
+                    cout << "Name: " << product.getProductName() << endl;
+                    cout << "Price: " << product.getProductPrice() << endl;
+                }
+                break;
+            }
         }
     }
 
