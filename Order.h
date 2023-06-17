@@ -12,19 +12,13 @@ class Order {
 private:
     string name;
     int quantity;
-    int VAT;
     string orderDate;
     int price;
     int totalPrice;
     string paymentMethod;
 public:
     Order(string name,int quantity,  string orderDate, int price, string paymentMethod);
-    string getName();
-    int getQuantity();
-    string getOrderDate();
-    int getTotalPrice();
-    int getPrice();
-    string getPaymentMethod();
+    string getOrderData();
 };
 
 

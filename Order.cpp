@@ -13,27 +13,10 @@ Order::Order(string name, int quantity, string orderDate, int price, string paym
     totalPrice = price * quantity * (1.23);
 }
 
-string Order::getName() {
-    return name;
-}
-
-int Order::getQuantity() {
-    return quantity;
-}
-
-string Order::getOrderDate() {
-    return orderDate;
-}
-
-int Order::getPrice() {
-    return price;
-}
-
-string Order::getPaymentMethod() {
-    return paymentMethod;
-}
-
-int Order::getTotalPrice() {
-    return totalPrice;
+string Order::getOrderData() {
+    string order =
+            name + ';' + to_string(quantity) + ';' + orderDate + ';' + to_string(price) + ';' + paymentMethod + ';' +
+            to_string(totalPrice);
+    return order;
 }
 

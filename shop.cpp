@@ -6,6 +6,7 @@
 #include <iostream>
 #include <ctime>
 
+
 void shop::addUser(string firstName, string lastName, string address, string gender) {
     client newUser(firstName, lastName, address, gender);
     user.push_back(newUser);
@@ -20,7 +21,6 @@ void shop::modifyUser(int index, string firstName, string lastName, string addre
 }
 
 void shop::menu() {
-    shop user1;
     int zmienna, id;
     zmienna = 1000;
     productslist();
@@ -61,6 +61,7 @@ void shop::menu() {
             case (3): {
                 saveToText(user);
                 saveToBinText(user);
+                break;
             }
             case (4): {
                 string name, paymentMethod;
@@ -69,7 +70,7 @@ void shop::menu() {
                 cin >> name;
                 cout << "Podaj ilosc: ";
                 cin >> quantity;
-                cout << "podaj spobos platnosci;: ";
+                cout << "podaj spobos platnosci: ";
                 cin >> paymentMethod;
                 for (auto product: products) {
                     if (product.getProductName() == name) {
@@ -77,7 +78,7 @@ void shop::menu() {
                         addOrder(name, quantity, price, paymentMethod);
                     }
                 }
-                if(price==0) cout<<"zla nazwa produktu"<<endl;
+                if (price == 0) cout << "zla nazwa produktu" << endl;\
                 break;
             }
         }
@@ -92,8 +93,8 @@ void shop::saveToText(vector<client> user) {
     if (plik.is_open()) {
         cout << "Zapisuje do pliku" << endl;
         for (auto client: user) {
-            plik << client.getFirstName() << ";" << client.getLastName() << ";" << client.getAddress() << ";"
-                 << client.getGender() << endl;
+            string zmienna = client.getClientData();
+            plik << zmienna << endl;
         }
     }
     plik.close();
@@ -110,14 +111,8 @@ void shop::saveToBinText(vector<client> user) {
         cout << "Zapisuje do pliku" << endl;
         for (auto client: user) {
             i++;
-            string a = client.getFirstName();
-            string b = client.getLastName();
-            string c = client.getAddress();
-            string d = client.getGender();
+            string a = client.getClientData();
             plik.write(reinterpret_cast<char *>(&a), sizeof(i));
-            plik.write(reinterpret_cast<char *>(&b), sizeof(i));
-            plik.write(reinterpret_cast<char *>(&c), sizeof(i));
-            plik.write(reinterpret_cast<char *>(&d), sizeof(i));
         }
     }
     plik.close();
@@ -156,5 +151,7 @@ void shop::productslist() {
     plik.close();
 
 }
+
+
 
 

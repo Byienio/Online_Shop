@@ -1,7 +1,6 @@
 #include <iostream>
 #include "shop.h"
 #include <string>
-#include "shop.h"
 using namespace std;
 
 int main() {

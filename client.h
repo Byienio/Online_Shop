@@ -7,6 +7,7 @@
 
 #include <string>
 #include <iostream>
+
 using namespace std;
 
 class client {
@@ -17,10 +18,7 @@ private:
     string gender;
 public:
     client(string firstName, string lastName, string address, string gender);
-    string getFirstName();
-    string getLastName();
-    string getAddress();
-    string getGender();
+    string getClientData();
 
 
 };
