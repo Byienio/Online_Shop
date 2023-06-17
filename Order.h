@@ -10,15 +10,15 @@ using namespace std;
 
 class Order {
 private:
+
+public:
     string name;
     int quantity;
     string orderDate;
     int price;
     int totalPrice;
     string paymentMethod;
-public:
     Order(string name,int quantity,  string orderDate, int price, string paymentMethod);
-    string getOrderData();
 };
 
 

@@ -10,10 +10,6 @@ using namespace std;
 class product {
 public:
     product(string name,int price);
-    string getProductName();
-    int getProductPrice();
-
-private:
     string name;
     int price;
 

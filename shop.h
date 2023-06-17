@@ -23,6 +23,7 @@ public:
     void addOrder(string name,int quantity,int price,string paymentMethod);
     void modifyOrder(int index,string name,int quantity,string paymentMethod);
     void productslist();
+    void showOrders(vector<Order>order);
     void menu();
 
 private:

@@ -9,10 +9,3 @@ this->name=name;
 this->price= price;
 }
 
-string product::getProductName() {
-    return name;
-}
-
-int product::getProductPrice() {
-    return price;
-}

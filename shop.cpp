@@ -74,8 +74,8 @@ void shop::menu() {
                 cout << "podaj spobos platnosci: ";
                 cin >> paymentMethod;
                 for (auto product: products) {
-                    if (product.getProductName() == name) {
-                        price = product.getProductPrice();
+                    if (product.name == name) {
+                        price = product.price;
                         addOrder(name, quantity, price, paymentMethod);
                     }
                 }
@@ -88,20 +88,26 @@ void shop::menu() {
                 int index;
                 cout << "Podaj indeks zamowienia ktore chcesz edytowac: " << endl;
                 cin >> index;
-                cout << "Podaj nazwe nowego produktu:" << endl;
-                cin >> name;
-                cout << "podaj ilosc: " << endl;
-                cin >> quantity;
-                cout << "podaj sposob platnosci:" << endl;
-                cin >> paymentMethod;
-                modifyOrder(index, name, quantity, paymentMethod);
+                if(index<=order.size()+1) {
+                    cout << "Podaj nazwe nowego produktu:" << endl;
+                    cin >> name;
+                    cout << "podaj ilosc: " << endl;
+                    cin >> quantity;
+                    cout << "podaj sposob platnosci:" << endl;
+                    cin >> paymentMethod;
+                    modifyOrder(index, name, quantity, paymentMethod);
+                }
+                else cout<<"zly numer indeksu"<<endl;
             }
             case (6): {
                 for (auto product: products) {
-                    cout << "Name: " << product.getProductName() << endl;
-                    cout << "Price: " << product.getProductPrice() << endl;
+                    cout << "Name: " << product.name << endl;
+                    cout << "Price: " << product.price << endl;
                 }
                 break;
+            }
+            case(7):{
+                showOrders(order);
             }
         }
     }
@@ -166,8 +172,8 @@ void shop::productslist() {
             if (plik.eof()) break;
         }
         for (auto product: products) {
-            cout << "Name: " << product.getProductName() << endl;
-            cout << "Price: " << product.getProductPrice() << endl;
+            cout << "Name: " << product.name << endl;
+            cout << "Price: " << product.price << endl;
         }
     }
     plik.close();
@@ -180,11 +186,23 @@ void shop::modifyOrder(int index, string name, int quantity, string paymentMetho
         time_t now = time(0);
         string date_time = ctime(&now);
         for (auto product: products) {
-            if (product.getProductName() == name) {
-                int price = product.getProductPrice();
+            if (name == product.name) {
+                int price = product.price;
                 modorder = Order(name, quantity, date_time, price, paymentMethod);
             }
         }
+    }
+}
+
+void shop::showOrders(vector<Order> order) {
+    for(int i=0;i<order.size();i++){
+        cout<<"nr Zamowienia: "<<i+1<<endl;
+        cout<<"Nazwa: "<<order[i].name<<"\t";
+        cout<<"Ilosc: "<<order[i].quantity<<"\t";
+        cout<<"Cena za 1szt: "<<order[i].price<<"\t";
+        cout<<"Data zlozenia zamowienia: "<<order[i].orderDate<<"\t";
+        cout<<"Cena zamowienia: "<<order[i].totalPrice<<"\t";
+        cout<<"Metoda platnosci: "<<order[i].paymentMethod<<endl;
     }
 }
 
