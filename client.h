@@ -12,11 +12,11 @@ using namespace std;
 
 class client {
 private:
+    string gender;
+public:
     string firstName;
     string lastName;
     string address;
-    string gender;
-public:
     client(string firstName, string lastName, string address, string gender);
     string getClientData();
 

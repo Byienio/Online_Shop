@@ -18,7 +18,8 @@ public:
     int price;
     int totalPrice;
     string paymentMethod;
-    Order(string name,int quantity,  string orderDate, int price, string paymentMethod);
+    int userId;
+    Order(int userId,string name,int quantity,  string orderDate, int price, string paymentMethod);
 };
 
 

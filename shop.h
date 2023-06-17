@@ -20,10 +20,11 @@ public:
     void modifyUser(int index,string firstName, string lastName, string address, string gender);
     void saveToText(vector<client> user);
     void saveToBinText(vector<client>user);
-    void addOrder(string name,int quantity,int price,string paymentMethod);
+    void addOrder(int userId,string name,int quantity,int price,string paymentMethod);
     void modifyOrder(int index,string name,int quantity,string paymentMethod);
     void productslist();
-    void showOrders(vector<Order>order);
+    void showOrders(vector<Order>order,vector <client>user);
+    void saveOrdersToFile(vector<Order> order,vector<client> user);
     void menu();
 
 private:
