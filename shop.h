@@ -21,6 +21,7 @@ public:
     void saveToText(vector<client> user);
     void saveToBinText(vector<client>user);
     void addOrder(string name,int quantity,int price,string paymentMethod);
+    void modifyOrder(int index,string name,int quantity,string paymentMethod);
     void productslist();
     void menu();
 

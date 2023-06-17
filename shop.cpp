@@ -57,6 +57,7 @@ void shop::menu() {
                 cout << "podaj plec: ";
                 cin >> gender;
                 modifyUser(index, firstName, lastName, address, gender);
+                break;
             }
             case (3): {
                 saveToText(user);
@@ -81,7 +82,21 @@ void shop::menu() {
                 if (price == 0) cout << "zla nazwa produktu" << endl;\
                 break;
             }
-            case(5):{
+            case (5): {
+                string name, paymentMethod;
+                int quantity, VAT, price;
+                int index;
+                cout << "Podaj indeks zamowienia ktore chcesz edytowac: " << endl;
+                cin >> index;
+                cout << "Podaj nazwe nowego produktu:" << endl;
+                cin >> name;
+                cout << "podaj ilosc: " << endl;
+                cin >> quantity;
+                cout << "podaj sposob platnosci:" << endl;
+                cin >> paymentMethod;
+                modifyOrder(index, name, quantity, paymentMethod);
+            }
+            case (6): {
                 for (auto product: products) {
                     cout << "Name: " << product.getProductName() << endl;
                     cout << "Price: " << product.getProductPrice() << endl;
@@ -157,6 +172,20 @@ void shop::productslist() {
     }
     plik.close();
 
+}
+
+void shop::modifyOrder(int index, string name, int quantity, string paymentMethod) {
+    if (index >= 0 && index <= order.size()) {
+        Order &modorder = order[index - 1];
+        time_t now = time(0);
+        string date_time = ctime(&now);
+        for (auto product: products) {
+            if (product.getProductName() == name) {
+                int price = product.getProductPrice();
+                modorder = Order(name, quantity, date_time, price, paymentMethod);
+            }
+        }
+    }
 }
 
 
