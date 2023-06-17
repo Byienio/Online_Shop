@@ -9,7 +9,7 @@
 
 void shop::menu() {
     int zmienna, id, orderId;
-    id = 1,orderId=1;
+    id = 1, orderId = 1;
     productslist();
     string firstName, lastName, address, gender;
     cout << "1-dodanie uzytkownika" << endl;
@@ -20,7 +20,7 @@ void shop::menu() {
     cout << "6-wyswietlenie listy produktow" << endl;
     cout << "7-wyswietlenie zamowien" << endl;
     cout << "8-zapis zamowien do plku" << endl;
-    cout << "9-wyjscie"<<endl;
+    cout << "9-wyjscie" << endl;
     while (zmienna != 9) {
         cout << "co zrobic?" << endl;
         cin >> zmienna;
@@ -44,15 +44,17 @@ void shop::menu() {
                 int index;
                 cout << "podaj indeks uzytkownika ktorego chcesz edytowac" << endl;
                 cin >> index;
-                cout << "Podaj imie: ";
-                cin >> firstName;
-                cout << "Podaj nazwisko: ";
-                cin >> lastName;
-                cout << "Podaj adres: ";
-                cin >> address;
-                cout << "podaj plec: ";
-                cin >> gender;
-                modifyUser(index, firstName, lastName, address, gender);
+                if (index <= user.size() + 1 && index > 0) {
+                    cout << "Podaj imie: ";
+                    cin >> firstName;
+                    cout << "Podaj nazwisko: ";
+                    cin >> lastName;
+                    cout << "Podaj adres: ";
+                    cin >> address;
+                    cout << "podaj plec: ";
+                    cin >> gender;
+                    modifyUser(index, firstName, lastName, address, gender);
+                } else cout << "Nie ma takiego uzytkownika" << endl;
                 break;
             }
             case (3): {
@@ -62,25 +64,27 @@ void shop::menu() {
             }
             case (4): {
                 string name, paymentMethod;
-                int quantity, price,userId;
-                cout << "Podaj id klienta";
+                int quantity, price, userId;
+                cout << "Podaj id klienta: ";
                 cin >> userId;
-                cout << "podaj nazwe: ";
-                cin >> name;
-                cout << "Podaj ilosc: ";
-                cin >> quantity;
-                cout << "podaj spobos platnosci: ";
-                cin >> paymentMethod;
-                for (auto product: products) {
-                    if (product.name == name) {
-                        price = product.price;
-                        addOrder(userId,name, quantity, price, paymentMethod);
+                if (userId <= user.size() + 1 && userId > 0) {
+                    cout << "podaj nazwe: ";
+                    cin >> name;
+                    cout << "Podaj ilosc: ";
+                    cin >> quantity;
+                    cout << "podaj spobos platnosci: ";
+                    cin >> paymentMethod;
+                    for (auto product: products) {
+                        if (product.name == name) {
+                            price = product.price;
+                            addOrder(userId, name, quantity, price, paymentMethod);
+                        }
                     }
-                }
-                if (price == 0) cout << "zla nazwa produktu" << endl;\
+                    if (price == 0) cout << "zla nazwa produktu" << endl;\
                 cout << "dodano zamowienie o id " << orderId <<
                      endl;
-                orderId++;
+                    orderId++;
+                } else cout << "Nie ma uzytkownika o takim id" << endl;
                 break;
             }
             case (5): {
@@ -88,7 +92,7 @@ void shop::menu() {
                 int quantity, index;
                 cout << "Podaj indeks zamowienia ktore chcesz edytowac: " << endl;
                 cin >> index;
-                if (index <= order.size() + 1) {
+                if (index <= order.size() + 1 && index > 0) {
                     cout << "Podaj nazwe nowego produktu:" << endl;
                     cin >> name;
                     cout << "podaj ilosc: " << endl;
@@ -111,7 +115,8 @@ void shop::menu() {
                 break;
             }
             case (8): {
-                saveOrdersToFile(order,user);
+                saveOrdersToFile(order, user);
+                saveOrdersToBinFile(order,user);
                 break;
             }
         }
@@ -156,19 +161,19 @@ void shop::saveToBinText(vector<client> user) {
     if (plik.is_open()) {
         cout << "Zapisuje do pliku" << endl;
         for (auto client: user) {
-            i++;
             string a = client.getClientData();
             plik.write(reinterpret_cast<char *>(&a), sizeof(i));
+            i++;
         }
     }
     plik.close();
     cout << "Plik zamkniety" << endl;
 }
 
-void shop::addOrder(int userId,string name, int quantity, int price, string paymentMethod) {
+void shop::addOrder(int userId, string name, int quantity, int price, string paymentMethod) {
     time_t now = time(0);
-    string date_time =ctime(&now);
-    date_time= date_time.substr(0,date_time.length()-1);
+    string date_time = ctime(&now);
+    date_time = date_time.substr(0, date_time.length() - 1);
     Order newOrder(userId - 1, name, quantity, date_time, price, paymentMethod);
     order.push_back(newOrder);
 }
@@ -226,7 +231,7 @@ void shop::showOrders(vector<Order> order, vector<client> user) {
     }
 }
 
-void shop::saveOrdersToFile(vector<Order> order,vector<client> user) {
+void shop::saveOrdersToFile(vector<Order> order, vector<client> user) {
     ofstream plik;
     cout << "Otwieram plik." << endl;
     plik.open("orders.txt", ios_base::out);
@@ -234,12 +239,34 @@ void shop::saveOrdersToFile(vector<Order> order,vector<client> user) {
         plik << "imie;nazwisko;adres_dostawy;nazwa_produktu;ilosc;cena1szt;data;cena_zamowienia;metoda_platnosci\n";
         cout << "Zapisuje do pliku" << endl;
         for (auto order: order) {
-            plik <<user[order.userId].firstName<< ";"<<user[order.userId].lastName<< ";"<<user[order.userId].address<< ";"<< order.name << ";" << order.quantity << ";" << order.price << ";" << order.orderDate << ";"
+            plik << user[order.userId].firstName << ";" << user[order.userId].lastName << ";"
+                 << user[order.userId].address << ";" << order.name << ";" << order.quantity << ";" << order.price
+                 << ";" << order.orderDate << ";"
                  << order.totalPrice << ";" << order.paymentMethod << ";" << "\n";
         }
     }
     plik.close();
     cout << "Plik zamkniety" << endl;
+}
+
+void shop::saveOrdersToBinFile(vector<Order> order, vector<client> user) {
+    int i=0;
+    ofstream plik;
+    cout << "Otwieram plik binarny ." << endl;
+    plik.open("ordersbin.txt", ios_base::out | ios::binary);
+    if (plik.is_open()) {
+        cout << "Zapisuje do pliku binarnego " << endl;
+        for (auto order: order) {
+            string a = user[order.userId].firstName + ";"
+                    + user[order.userId].lastName + ";" + user[order.userId].address + ";" + order.name
+                    + ";" + to_string(order.quantity) + ";" + to_string(order.price) + ";" + order.orderDate + ";"
+                    + to_string(order.totalPrice) + ";" + order.paymentMethod + ";" + "\n";
+            plik.write(reinterpret_cast<char *>(&a), sizeof(i));
+            i++;
+        }
+    }
+    plik.close();
+    cout << "Plik binarny zamkniety" << endl;
 }
 
 

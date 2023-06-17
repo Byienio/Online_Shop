@@ -25,6 +25,7 @@ public:
     void productslist();
     void showOrders(vector<Order>order,vector <client>user);
     void saveOrdersToFile(vector<Order> order,vector<client> user);
+    void saveOrdersToBinFile(vector<Order> order,vector<client> user);
     void menu();
 
 private:
